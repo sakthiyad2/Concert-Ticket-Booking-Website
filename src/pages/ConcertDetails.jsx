@@ -20,7 +20,7 @@ function getTimeLeft(targetDate) {
 
 function ConcertDetails() {
   const { id } = useParams();
-  const { wishlist, toggleWishlist } = useBooking();
+  const { currentUser, wishlist, toggleWishlist } = useBooking();
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   const concert = concerts.find((item) => item.id === Number(id));
@@ -97,15 +97,25 @@ function ConcertDetails() {
           </div>
 
           <div className="details-actions">
-            <Link to={`/booking/${concert.id}`} className="primary-btn">Book Tickets</Link>
+            <Link to={currentUser ? `/booking/${concert.id}` : '/auth'} className="primary-btn">
+              {currentUser ? 'Book Tickets' : 'Sign in to Book'}
+            </Link>
             <button
               type="button"
               className={`wishlist-btn ${saved ? 'saved' : ''}`}
-              onClick={() => toggleWishlist(concert.id)}
+              onClick={() => {
+                if (!currentUser) {
+                  alert('Please sign in or create an account to save concerts to your wishlist.');
+                  return;
+                }
+
+                toggleWishlist(concert.id);
+              }}
+              disabled={!currentUser}
               aria-pressed={saved}
               aria-label={saved ? `Remove ${concert.title} from wishlist` : `Add ${concert.title} to wishlist`}
             >
-              {saved ? '♥ Added to Wishlist' : '♡ Add to Wishlist'}
+              {currentUser ? (saved ? '♥ Added to Wishlist' : '♡ Add to Wishlist') : '🔒 Sign in to save'}
             </button>
           </div>
         </div>

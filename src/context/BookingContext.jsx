@@ -68,6 +68,17 @@ export function BookingProvider({ children }) {
     setCurrentUser(null);
   }
 
+  function requireAuthenticatedUser() {
+    const activeUser = getLoggedInUser();
+
+    if (!activeUser?.email) {
+      alert('Please sign in or create an account before booking tickets or saving concerts.');
+      return null;
+    }
+
+    return activeUser;
+  }
+
   function toggleSeat(seat) {
     setSelectedSeats((current) => {
       if (current.includes(seat)) {
@@ -79,20 +90,32 @@ export function BookingProvider({ children }) {
   }
 
   function toggleWishlist(concertId) {
+    const activeUser = requireAuthenticatedUser();
+
+    if (!activeUser) {
+      return false;
+    }
+
     setWishlist((current) =>
       current.includes(concertId)
         ? current.filter((id) => id !== concertId)
         : [...current, concertId]
     );
+
+    return true;
   }
 
   function confirmBooking(concert) {
-    const activeUser = getLoggedInUser();
+    const activeUser = requireAuthenticatedUser();
+
+    if (!activeUser) {
+      return null;
+    }
 
     const newBooking = {
       id: Date.now(),
-      userEmail: activeUser?.email || 'guest@example.com',
-      userName: activeUser?.name || 'Guest User',
+      userEmail: activeUser.email,
+      userName: activeUser.name || 'Registered User',
       concertId: concert.id,
       concert: concert.title,
       artist: concert.artist,

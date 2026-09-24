@@ -6,6 +6,18 @@ function MyBookings() {
 
   const userName = currentUser?.name || 'Guest';
 
+  if (!currentUser) {
+    return (
+      <main className="page">
+        <div className="empty-bookings">
+          <h2>Login required</h2>
+          <p>Create an account or sign in to manage your tickets.</p>
+          <Link to="/auth" className="primary-btn">Go to Sign In</Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="page">
       <div className="page-header">

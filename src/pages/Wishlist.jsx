@@ -3,9 +3,21 @@ import { useBooking } from '../context/BookingContext';
 import concerts from '../data/concerts';
 
 function Wishlist() {
-  const { wishlist } = useBooking();
+  const { currentUser, wishlist } = useBooking();
 
   const savedConcerts = concerts.filter((concert) => wishlist.includes(concert.id));
+
+  if (!currentUser) {
+    return (
+      <main className="page">
+        <div className="empty-bookings">
+          <h2>Login required</h2>
+          <p>Create an account or sign in to save concerts to your wishlist.</p>
+          <Link to="/auth" className="primary-btn">Go to Sign In</Link>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="page">

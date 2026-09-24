@@ -63,6 +63,11 @@ function AuthPage() {
         return;
       }
 
+      if (storedUser.password !== form.password) {
+        alert('Incorrect password. Please try again.');
+        return;
+      }
+
       saveUser(storedUser);
       return;
     }
@@ -85,7 +90,8 @@ function AuthPage() {
 
     const nextUser = {
       name: form.name,
-      email: form.email
+      email: form.email,
+      password: form.password
     };
 
     saveUser(nextUser);

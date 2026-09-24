@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 
 function ConcertCard({ concert }) {
-  const { wishlist, toggleWishlist } = useBooking();
+  const { currentUser, wishlist, toggleWishlist } = useBooking();
   const isSaved = wishlist.includes(concert.id);
 
   return (
@@ -23,11 +23,19 @@ function ConcertCard({ concert }) {
         <button
           type="button"
           className={`wishlist-btn ${isSaved ? 'saved' : ''}`}
-          onClick={() => toggleWishlist(concert.id)}
+          onClick={() => {
+            if (!currentUser) {
+              alert('Please sign in or create an account to save concerts to your wishlist.');
+              return;
+            }
+
+            toggleWishlist(concert.id);
+          }}
+          disabled={!currentUser}
           aria-pressed={isSaved}
           aria-label={isSaved ? `Remove ${concert.title} from wishlist` : `Add ${concert.title} to wishlist`}
         >
-          {isSaved ? '♥ Added to Wishlist' : '♡ Add to Wishlist'}
+          {currentUser ? (isSaved ? '♥ Added to Wishlist' : '♡ Add to Wishlist') : '🔒 Sign in to save'}
         </button>
       </div>
     </article>

@@ -18,7 +18,7 @@ function PaymentQr() {
 
 function Booking() {
   const { id } = useParams();
-  const { selectedSeats, confirmBooking } = useBooking();
+  const { currentUser, selectedSeats, confirmBooking } = useBooking();
   const [confirmed, setConfirmed] = useState(false);
   const [ticket, setTicket] = useState(null);
 
@@ -32,6 +32,18 @@ function Booking() {
     );
   }
 
+  if (!currentUser) {
+    return (
+      <main className="page">
+        <div className="empty-bookings">
+          <h2>Login required</h2>
+          <p>You must create an account or sign in before booking tickets.</p>
+          <Link to="/auth" className="primary-btn">Go to Sign In</Link>
+        </div>
+      </main>
+    );
+  }
+
   function handleBooking() {
     if (selectedSeats.length === 0) {
       alert('Please select at least one seat.');
@@ -39,6 +51,11 @@ function Booking() {
     }
 
     const booking = confirmBooking(concert);
+
+    if (!booking) {
+      return;
+    }
+
     setTicket({ ...booking, venue: concert.venue || concert.location });
     setConfirmed(true);
   }
