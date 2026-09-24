@@ -7,7 +7,7 @@ const concerts = [
     location: 'Chennai',
     venue: 'YMCA Grounds',
     price: 999,
-    image: '/images/concerts/concert1.jpg',
+    image: `${import.meta.env.BASE_URL}images/concerts/concert1.jpg`,
     description: 'Experience an unforgettable evening of music with A.R. Rahman and his live orchestra.'
   },
   {
@@ -18,7 +18,7 @@ const concerts = [
     location: 'Bengaluru',
     venue: 'Palace Grounds',
     price: 1499,
-    image: '/images/concerts/concert2.jpg',
+    image: `${import.meta.env.BASE_URL}images/concerts/concert2.jpg`,
     description: "Get ready for an energetic night featuring Anirudh's biggest chart-topping hits."
   },
   {
@@ -29,7 +29,7 @@ const concerts = [
     location: 'Chennai',
     venue: 'Island Grounds',
     price: 799,
-    image: '/images/concerts/concert3.jpg',
+    image: `${import.meta.env.BASE_URL}images/concerts/concert3.jpg`,
     description: 'Enjoy the timeless melodies of Harris Jayaraj performed live with talented musicians.'
   },
   {
@@ -40,7 +40,7 @@ const concerts = [
     location: 'Coimbatore',
     venue: 'Codissia Grounds',
     price: 1299,
-    image: '/images/concerts/concert4.jpg',
+    image: `${import.meta.env.BASE_URL}images/concerts/concert4.jpg`,
     description: 'A grand symphony celebrating the legendary music of Ilaiyaraaja.'
   },
   {
@@ -51,7 +51,7 @@ const concerts = [
     location: 'Chennai',
     venue: 'Adyar Convention Centre',
     price: 699,
-    image: '/images/concerts/concert5.jpg',
+    image: `${import.meta.env.BASE_URL}images/concerts/concert5.jpg`,
     description: 'A spectacular evening bringing together some of the most popular voices in Tamil music.'
   }
 ];

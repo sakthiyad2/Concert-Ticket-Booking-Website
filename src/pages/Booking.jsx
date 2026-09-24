@@ -9,7 +9,7 @@ const bookedSeats = ['A2', 'A5', 'B3', 'C4', 'D2'];
 function PaymentQr() {
   return (
     <img
-      src="/images/payment.jpeg"
+      src={`${import.meta.env.BASE_URL}images/payment.jpeg`}
       alt="UPI QR code payment"
       className="qr-code"
     />
